@@ -2,8 +2,8 @@
 
 # Exit if the critical environment variables are not set
 : ${DUPLICACY_PASSWORD:?"Environment variable DUPLICACY_PASSWORD is required but not set."}
-: ${B2_ID:?"Environment variable B2_ID is required but not set."}
-: ${B2_KEY:?"Environment variable B2_KEY is required but not set."}
+: ${DUPLICACY_B2_ID:?"Environment variable B2_ID is required but not set."}
+: ${DUPLICACY_B2_KEY:?"Environment variable B2_KEY is required but not set."}
 
 # Create default configuration file if not exists
 if [ ! -f "$CRON_CONFIG" ]; then
