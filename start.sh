@@ -4,6 +4,11 @@
 : ${DUPLICACY_PASSWORD:?"Environment variable DUPLICACY_PASSWORD is required but not set."}
 : ${DUPLICACY_B2_ID:?"Environment variable B2_ID is required but not set."}
 : ${DUPLICACY_B2_KEY:?"Environment variable B2_KEY is required but not set."}
+: ${SNAPSHOT_ID:?"Environment variable SNAPSHOT_ID is required but not set."}
+: ${STORAGE_URL:?"Environment variable STORAGE_URL is required but not set."}
+
+# Duplicacy init
+duplicacy init -e $SNAPSHOT_ID $STORAGE_URL
 
 # Create default configuration file if not exists
 if [ ! -f "$CRON_CONFIG" ]; then

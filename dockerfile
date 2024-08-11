@@ -1,11 +1,15 @@
 # Duplicacy Dockerfile
-# Be sure to set End of Line sequence to LF
+# Be sure to set End of Line sequence to LF for scripts to work properly
 FROM debian:12
 
-# Set critical environment variables
+# Set private environment variables
 ENV DUPLICACY_PASSWORD=""
 ENV DUPLICACY_B2_ID=""
 ENV DUPLICACY_B2_KEY=""
+
+# Set public environment variables
+ENV SNAPSHOT_ID=""
+ENV STORAGE_URL=""
 
 # Set fixed environment variables
 ENV CRON_DEFAULT_CONFIG=/duplicacy/cron-default.conf
