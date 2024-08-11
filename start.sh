@@ -22,8 +22,8 @@ temp_cron_file="/tmp/crontab_with_envs"
 # Append the environment variables to the temp cron configuration file
 echo "PATH=$PATH" > $temp_cron_file
 echo "DUPLICACY_PASSWORD=$DUPLICACY_PASSWORD" >> $temp_cron_file
-echo "B2_ID=$B2_ID" >> $temp_cron_file
-echo "B2_KEY=$B2_KEY" >> $temp_cron_file
+echo "DUPLICACY_B2_ID=$DUPLICACY_B2_ID" >> $temp_cron_file
+echo "DUPLICACY_B2_KEY=$DUPLICACY_B2_KEY" >> $temp_cron_file
 
 # Append the cron configuration to the temp cron configuration file
 cat $CRON_CONFIG >> $temp_cron_file
