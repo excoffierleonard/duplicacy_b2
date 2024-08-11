@@ -1,30 +1,41 @@
 #!/bin/bash
 
-# Load Duplicacy environment variables
-echo "# Load Duplicacy environment variables" > /root/.bashrc
-while IFS='=' read -r key value
-do
-    echo "export $key=$value" >> /root/.bashrc
-done < "$DUPLICACY_CONFIG"
+# Exit if the critical environment variables are not set
+: ${DUPLICACY_PASSWORD:?"Environment variable DUPLICACY_PASSWORD is required but not set."}
+: ${B2_ID:?"Environment variable B2_ID is required but not set."}
+: ${B2_KEY:?"Environment variable B2_KEY is required but not set."}
+
+# Create default configuration file if not exists
+if [ ! -f "$CRON_CONFIG" ]; then
+    echo "Creating default cron.conf"
+    if [ -f "$CRON_DEFAULT_CONFIG" ]; then
+        cp "$CRON_DEFAULT_CONFIG" "$CRON_CONFIG"
+    else
+        echo "Default cron file not found."
+        exit 1
+    fi
+fi
 
 # Create a new temporary crontab file
-temp_cron_file="/tmp/crontab_with_env"
+temp_cron_file="/tmp/crontab_with_envs"
 
-# Set the PATH for the cron jobs
-echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" > $temp_cron_file
+# Append the environment variables to the temp cron configuration file
+echo "PATH=$PATH" > $temp_cron_file
+echo "DUPLICACY_PASSWORD=$DUPLICACY_PASSWORD" >> $temp_cron_file
+echo "B2_ID=$B2_ID" >> $temp_cron_file
+echo "B2_KEY=$B2_KEY" >> $temp_cron_file
 
-echo "" >> $temp_cron_file
-
-# Append environment variables from duplicacy.conf to the temporary crontab file
-cat $DUPLICACY_CONFIG >> $temp_cron_file
-
-echo "" >> $temp_cron_file
-
-# Append the original crontab entries to the temporary crontab file
+# Append the cron configuration to the temp cron configuration file
 cat $CRON_CONFIG >> $temp_cron_file
 
 # Load the new crontab file
 crontab $temp_cron_file
 
 # Start cron
-cron -f
+cron
+
+# Ensure log files exist to avoid tail errors
+touch "$LOG_BACKUP_FILE" "$LOG_PRUNE_FILE"
+
+# Monitor the logs
+tail -f "$LOG_BACKUP_FILE" "$LOG_PRUNE_FILE"
