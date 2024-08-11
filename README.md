@@ -127,7 +127,7 @@ For users who prefer the direct Docker command or have specific use cases, Docke
 
    If you wish to build the image locally:
    ```sh
-   docker build -t duplicacy_b2_local .
+   docker build -t duplicacy_b2 .
    ```
 
 4. **Run the Docker Container Locally:**
@@ -146,7 +146,7 @@ For users who prefer the direct Docker command or have specific use cases, Docke
      -e TZ=America/New_York \
      -v duplicacy_b2:/duplicacy/appdata \
      -v /path/to/your/folder:/duplicacy/backup \
-     duplicacy_b2_local
+     duplicacy_b2
 
 ## Default Cron Configuration
 
