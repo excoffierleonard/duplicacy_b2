@@ -182,4 +182,4 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
 
 ## License
 
-This project is licensed under the MIT License. Feel free to use and modify it as needed.
+This project is licensed under the [MIT License](LICENSE). Feel free to use and modify it as needed.
