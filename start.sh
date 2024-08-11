@@ -5,10 +5,10 @@
 : ${DUPLICACY_B2_ID:?"Environment variable B2_ID is required but not set."}
 : ${DUPLICACY_B2_KEY:?"Environment variable B2_KEY is required but not set."}
 : ${SNAPSHOT_ID:?"Environment variable SNAPSHOT_ID is required but not set."}
-: ${STORAGE_URL:?"Environment variable STORAGE_URL is required but not set."}
+: ${B2_URL:?"Environment variable B2_URL is required but not set."}
 
 # Duplicacy init
-duplicacy init -e $SNAPSHOT_ID $STORAGE_URL
+duplicacy init -e $SNAPSHOT_ID $B2_URL
 
 # Create default configuration file if not exists
 if [ ! -f "$CRON_CONFIG" ]; then
@@ -29,6 +29,7 @@ echo "PATH=$PATH" > $temp_cron_file
 echo "DUPLICACY_PASSWORD=$DUPLICACY_PASSWORD" >> $temp_cron_file
 echo "DUPLICACY_B2_ID=$DUPLICACY_B2_ID" >> $temp_cron_file
 echo "DUPLICACY_B2_KEY=$DUPLICACY_B2_KEY" >> $temp_cron_file
+echo "THREADS=$THREADS" >> $temp_cron_file
 echo "LOG_BACKUP_FILE=$LOG_BACKUP_FILE" >> $temp_cron_file
 echo "LOG_PRUNE_FILE=$LOG_PRUNE_FILE" >> $temp_cron_file
 

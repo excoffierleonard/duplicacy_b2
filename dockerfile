@@ -1,5 +1,4 @@
 # Duplicacy Dockerfile
-# Be sure to set End of Line sequence to LF for scripts to work properly
 FROM debian:12
 
 # Set private environment variables
@@ -9,16 +8,17 @@ ENV DUPLICACY_B2_KEY=""
 
 # Set public environment variables
 ENV SNAPSHOT_ID=""
-ENV STORAGE_URL=""
+ENV B2_URL=""
+ENV THREADS=1
+
+# Set timezone
+ENV TZ=America/New_York
 
 # Set fixed environment variables
 ENV CRON_DEFAULT_CONFIG=/duplicacy/cron-default.conf
 ENV CRON_CONFIG=/duplicacy/appdata/cron/cron.conf
 ENV LOG_BACKUP_FILE=/duplicacy/appdata/logs/duplicacy_backup.log
 ENV LOG_PRUNE_FILE=/duplicacy/appdata/logs/duplicacy_prune.log
-
-# Set timezone
-ENV TZ=America/New_York
 
 # Set working directory
 WORKDIR /duplicacy
