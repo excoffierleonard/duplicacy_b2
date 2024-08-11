@@ -4,8 +4,8 @@ FROM debian:12
 
 # Set critical environment variables
 ENV DUPLICACY_PASSWORD=""
-ENV B2_ID=""
-ENV B2_KEY=""
+ENV DUPLICACY_B2_ID=""
+ENV DUPLICACY_B2_KEY=""
 
 # Set fixed environment variables
 ENV CRON_DEFAULT_CONFIG=/duplicacy/cron-default.conf
