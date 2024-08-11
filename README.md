@@ -15,7 +15,7 @@ This Docker project is designed to simplify the setup and management of backups 
 
 ## Getting Started
 
-To get started with this Docker project, you'll need Docker and Docker Compose installed on your system.
+To get started with this Docker project, you'll need Docker and preferably Docker Compose installed on your system.
 
 1. Clone the Repository:
 
