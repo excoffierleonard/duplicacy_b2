@@ -24,6 +24,8 @@ echo "PATH=$PATH" > $temp_cron_file
 echo "DUPLICACY_PASSWORD=$DUPLICACY_PASSWORD" >> $temp_cron_file
 echo "DUPLICACY_B2_ID=$DUPLICACY_B2_ID" >> $temp_cron_file
 echo "DUPLICACY_B2_KEY=$DUPLICACY_B2_KEY" >> $temp_cron_file
+echo "LOG_BACKUP_FILE=$LOG_BACKUP_FILE" >> $temp_cron_file
+echo "LOG_PRUNE_FILE=$LOG_PRUNE_FILE" >> $temp_cron_file
 
 # Append the cron configuration to the temp cron configuration file
 cat $CRON_CONFIG >> $temp_cron_file
