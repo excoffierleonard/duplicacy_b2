@@ -13,9 +13,11 @@ This Docker project is designed to simplify the setup and management of backups 
 8. [Building Locally](#building-locally)
 8. [License](#license)
 
-## Docker Image
+## Sources
 
-You can find the image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
+ - This project uses the command line version of [Duplicacy](https://github.com/gilbertchen/duplicacy)
+ - You can find the source code of this project on [GitHub](https://github.com/excoffierleonard/docker-duplicacy_b2)
+ - You can find the image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
 
 ## Project Structure
 
