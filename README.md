@@ -3,29 +3,17 @@
 This Docker project is designed to simplify the setup and management of backups using Duplicacy with Backblaze B2 cloud storage. By using Docker, the project encapsulates all dependencies and configurations neatly, ensuring a consistent and reproducible environment for your backup operations.
 
 ## Table of Contents
-
-1. [Getting Started](#getting-started)
-2. [Docker Image](#docker-image)
+1. [Docker Image](#docker-image)
 2. [Project Structure](#project-structure)
 3. [Environment Variables](#environment-variables)
 4. [Usage](#usage)
 5. [Default Cron Configuration](#default-cron-configuration)
 6. [Logs](#logs)
 7. [Commands](#commands)
+8. [Building Locally](#building-locally)
 8. [License](#license)
 
-## Getting Started
-
-To get started with this Docker project, you'll need Docker and preferably Docker Compose installed on your system.
-
-1. Clone the Repository:
-
-   ```
-   git clone https://github.com/yourusername/docker-duplicacy_b2.git
-   cd docker-duplicacy_b2
-   ```
-
-## Docker image
+## Docker Image
 
 You can find this image on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
 
@@ -40,7 +28,7 @@ You can find this image on [Docker Hub](https://hub.docker.com/r/excoffierleonar
 
 ## Environment Variables
 
-The following environment variables need to be set either in a `.env` file or hardcoded in `compose.yaml`:
+The following environment variables need to be set either in a `.env` file, hardcoded in `compose.yaml`, or set in the run command:
 
 - `DUPLICACY_PASSWORD`: Your backup password.
 - `DUPLICACY_B2_ID`: Your Backblaze B2 application ID.
@@ -59,7 +47,37 @@ Docker Compose simplifies managing and running your container setups. Please ens
 
 #### Steps:
 
-1. **Create a `.env` File:**
+1. **Create a `compose.yaml` File:**
+    
+    Create a `compose.yaml` file with the following content, you can find a template in the repo [here](compose.yaml).
+
+    ```yaml
+    services:
+        duplicacy_b2:
+            image: excoffierleonard/duplicacy_b2
+            container_name: duplicacy_b2
+            environment:
+                DUPLICACY_PASSWORD: ${DUPLICACY_PASSWORD} # Enter your backup password here
+                DUPLICACY_B2_ID: ${DUPLICACY_B2_ID} # Enter your Backblaze id here
+                DUPLICACY_B2_KEY: ${DUPLICACY_B2_KEY} # Enter your Backblaze key here
+                SNAPSHOT_ID: ${SNAPSHOT_ID} # Enter the name of your snapshot here
+                B2_URL: ${B2_URL} # Enter your Backblaze Bucket URL here
+                THREADS: ${THREADS} # Enter the number of threads you want to use for the backup
+                TZ: ${TZ} # Enter your timezone here
+            volumes:
+                - duplicacy_b2:/duplicacy/appdata # Docker volume for duplicacy_b2 appdata
+                - ${BACKUP_PATH_1}:/duplicacy/backup # Enter the path to the folder(s) you want to backup here, add more lines if you want to backup multiple folders
+
+    volumes:
+        duplicacy_b2:
+            name: duplicacy_b2
+
+    networks:
+        duplicacy_b2:
+            name: duplicacy_b2
+    ```
+
+2. **Create a `.env` File:**
 
    Set up environment variables by creating a `.env` file in the same directory as `compose.yaml`. You can use the example below as a guideline:
 
@@ -76,20 +94,6 @@ Docker Compose simplifies managing and running your container setups. Please ens
 
    Alternatively, you can hardcode these values directly in `compose.yaml`.
 
-2. **Using Pre-built DockerHub Image:**
-
-   - Update your `compose.yaml` file to reference the DockerHub image:
-     ```yaml
-     image: excoffierleonard/duplicacy_b2
-     ```
-
-3. **Building the Image Locally:**
-
-   - If building the image locally, update `compose.yaml` to use your local image tag:
-     ```yaml
-     image: duplicacy_b2
-     ```
-
 4. **Launch the Service:**
 
    - Start the containers in detached mode with Docker Compose:
@@ -99,18 +103,20 @@ Docker Compose simplifies managing and running your container setups. Please ens
 
 ### Alternative Method: Using Docker Run
 
-For users who prefer the direct Docker command or have specific use cases, Docker Run can also be used. Before proceeding, you need to create a custom network:
+For users who prefer the direct Docker command or have specific use cases, Docker Run can also be used.
 
 1. **Create a Docker Network:**
 
    This step ensures proper container communication and isolation:
+
    ```sh
    docker network create duplicacy_b2
    ```
 
-2. **Use the Pre-built DockerHub Image:**
+2. **Execute the Run command:**
 
    Run the Docker container with your defined network and replace placeholders with actual values:
+
    ```sh
    docker run \
      -d \
@@ -127,31 +133,6 @@ For users who prefer the direct Docker command or have specific use cases, Docke
      -v /path/to/your/folder:/duplicacy/backup \
      excoffierleonard/duplicacy_b2
    ```
-
-3. **Build the Docker Image Locally:**
-
-   If you wish to build the image locally:
-   ```sh
-   docker build -t duplicacy_b2 .
-   ```
-
-4. **Run the Docker Container Locally:**
-
-   Launch the container with the local image:
-   ```sh
-   docker run -d \
-     --name duplicacy_b2 \
-     --net=duplicacy_b2 \
-     -e DUPLICACY_PASSWORD=<your_backup_password> \
-     -e DUPLICACY_B2_ID=<your_b2_id> \
-     -e DUPLICACY_B2_KEY=<your_b2_key> \
-     -e SNAPSHOT_ID=<your_snapshot_id> \
-     -e B2_URL=<your_b2_bucket_url> \
-     -e THREADS=1 \
-     -e TZ=America/New_York \
-     -v duplicacy_b2:/duplicacy/appdata \
-     -v /path/to/your/folder:/duplicacy/backup \
-     duplicacy_b2
 
 ## Default Cron Configuration
 
@@ -184,6 +165,21 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
   ```
   docker compose down
   ```
+
+  or if using the run command:
+
+  ```
+  docker container stop duplicacy_b2
+  ```
+
+## Building Locally
+
+   ```
+   git clone https://github.com/yourusername/docker-duplicacy_b2.git
+   cd docker-duplicacy_b2
+   docker build \ 
+    -t docker-duplicacy_b2 .
+   ```
 
 ## License
 
