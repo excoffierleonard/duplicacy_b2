@@ -5,6 +5,7 @@ This Docker project is designed to simplify the setup and management of backups 
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
+2. [Docker Image](#docker-image)
 2. [Project Structure](#project-structure)
 3. [Environment Variables](#environment-variables)
 4. [Usage](#usage)
@@ -23,6 +24,10 @@ To get started with this Docker project, you'll need Docker and preferably Docke
    git clone https://github.com/yourusername/docker-duplicacy_b2.git
    cd docker-duplicacy_b2
    ```
+
+## Docker image
+
+You can find this image on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
 
 ## Project Structure
 
