@@ -15,7 +15,7 @@ This Docker project is designed to simplify the setup and management of backups 
 
 ## Docker Image
 
-You can find this image on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
+You can find the image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
 
 ## Project Structure
 
@@ -130,7 +130,7 @@ For users who prefer the direct Docker command or have specific use cases, Docke
      -e THREADS=1 \
      -e TZ=America/New_York \
      -v duplicacy_b2:/duplicacy/appdata \
-     -v /path/to/your/folder:/duplicacy/backup \
+     -v </folder/to/backup>:/duplicacy/backup \
      excoffierleonard/duplicacy_b2
    ```
 
