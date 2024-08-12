@@ -178,7 +178,7 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
    git clone https://github.com/yourusername/docker-duplicacy_b2.git
    cd docker-duplicacy_b2
    docker build \ 
-    -t docker-duplicacy_b2 .
+    -t duplicacy_b2 .
    ```
 
 ## License
