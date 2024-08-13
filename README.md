@@ -32,15 +32,20 @@ This Docker project is designed to simplify the setup and management of backups 
 
 ## Environment Variables
 
-The following environment variables need to be set either in a `.env` file, hardcoded in `compose.yaml`, or set in the run command:
+The following environment variables can be set either in a `.env` file, directly written in `compose.yaml`, or hardcoded in the `Run` command:
+
+### Required:
 
 - `DUPLICACY_PASSWORD`: Your backup password.
 - `DUPLICACY_B2_ID`: Your Backblaze B2 application ID.
 - `DUPLICACY_B2_KEY`: Your Backblaze B2 application key.
 - `SNAPSHOT_ID`: The name of your snapshot.
 - `B2_URL`: Your Backblaze Bucket URL.
-- `THREADS`: Number of threads for backup operations.
-- `TZ`: Timezone for the container.
+
+### Optional:
+
+- `THREADS`: Number of threads for backup operations. (Default is 1)
+- `TZ`: Timezone for the container. (Default is America/New_York)
 - `BACKUP_PATH_1`: Path to the folder you want to back up.
 
 ## Usage
@@ -57,28 +62,30 @@ Docker Compose simplifies managing and running your container setups. Please ens
 
     ```yaml
     services:
-        duplicacy_b2:
-            image: excoffierleonard/duplicacy_b2
-            container_name: duplicacy_b2
-            environment:
-                DUPLICACY_PASSWORD: ${DUPLICACY_PASSWORD} # Enter your backup password here
-                DUPLICACY_B2_ID: ${DUPLICACY_B2_ID} # Enter your Backblaze id here
-                DUPLICACY_B2_KEY: ${DUPLICACY_B2_KEY} # Enter your Backblaze key here
-                SNAPSHOT_ID: ${SNAPSHOT_ID} # Enter the name of your snapshot here
-                B2_URL: ${B2_URL} # Enter your Backblaze Bucket URL here
-                THREADS: ${THREADS} # Enter the number of threads you want to use for the backup
-                TZ: ${TZ} # Enter your timezone here
-            volumes:
-                - duplicacy_b2:/duplicacy/appdata # Docker volume for duplicacy_b2 appdata
-                - ${BACKUP_PATH_1}:/duplicacy/backup # Enter the path to the folder(s) you want to backup here, add more lines if you want to backup multiple folders
+      duplicacy_b2:
+        image: excoffierleonard/duplicacy_b2
+        container_name: duplicacy_b2
+        environment:
+          DUPLICACY_PASSWORD: ${DUPLICACY_PASSWORD} # Enter your backup password here
+          DUPLICACY_B2_ID: ${DUPLICACY_B2_ID} # Enter your Backblaze id here
+          DUPLICACY_B2_KEY: ${DUPLICACY_B2_KEY} # Enter your Backblaze key here
+          SNAPSHOT_ID: ${SNAPSHOT_ID} # Enter the name of your snapshot here
+          B2_URL: ${B2_URL} # Enter your Backblaze Bucket URL here
+          THREADS: ${THREADS} # Enter the number of threads you want to use for the backup
+          TZ: ${TZ} # Enter your timezone here
+        volumes:
+          - duplicacy_b2:/duplicacy/appdata # Docker volume for duplicacy_b2 appdata
+          - ${BACKUP_PATH_1}:/duplicacy/backup # Enter the path to the folder(s) you want to backup here, add more lines if you want to backup multiple folders
+        networks:
+          - duplicacy_b2
 
     volumes:
-        duplicacy_b2:
-            name: duplicacy_b2
+      duplicacy_b2:
+        name: duplicacy_b2
 
     networks:
-        duplicacy_b2:
-            name: duplicacy_b2
+      duplicacy_b2:
+        name: duplicacy_b2
     ```
 
 2. **Create a `.env` File:**
@@ -93,7 +100,7 @@ Docker Compose simplifies managing and running your container setups. Please ens
    B2_URL=your_b2_bucket_url
    THREADS=1
    TZ=America/New_York
-   BACKUP_PATH_1=/path/to/your/folder
+   BACKUP_PATH_1=/folder/to/backup
    ```
 
    Alternatively, you can hardcode these values directly in `compose.yaml`.
@@ -105,7 +112,7 @@ Docker Compose simplifies managing and running your container setups. Please ens
      docker compose up -d
      ```
 
-### Alternative Method: Using Docker Run
+### Alternative Method: Using Docker `Run`
 
 For users who prefer the direct Docker command or have specific use cases, Docker Run can also be used.
 
@@ -117,7 +124,7 @@ For users who prefer the direct Docker command or have specific use cases, Docke
    docker network create duplicacy_b2
    ```
 
-2. **Execute the Run command:**
+2. **Execute the `Run` command:**
 
    Run the Docker container with your defined network and replace placeholders with actual values:
 
@@ -134,7 +141,7 @@ For users who prefer the direct Docker command or have specific use cases, Docke
      -e THREADS=1 \
      -e TZ=America/New_York \
      -v duplicacy_b2:/duplicacy/appdata \
-     -v </folder/to/backup>:/duplicacy/backup \
+     -v BACKUP_PATH_1:/duplicacy/backup \
      excoffierleonard/duplicacy_b2
    ```
 
@@ -181,13 +188,16 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
    ```
    git clone https://github.com/yourusername/docker-duplicacy_b2.git
    cd docker-duplicacy_b2
-   docker build \ 
-    -t duplicacy_b2 .
+   docker build -t duplicacy_b2 .
    ```
+
+   - Dont't forget to modify the image name in the `compose.yaml` or `Run` command accordingly.
 
 ## Notes
 
-- Make sure to mount a Docker Volume for the appdata (default), using a local bind mount may cause issues related to the initial creation of appdata. If you really want to use a local bind mount, make sure to create the necessary files manually with apropriate permissions before runing the image for the first time.
+- The usage steps include the creation of a separate docker network, we chose this option because this Docker container will likely have access to sensitive files, the separate docker network provides additional isolation.
+
+- The appdata folder is by default linked to a Docker Volume for persistency ease of management.
 
 ## License
 
