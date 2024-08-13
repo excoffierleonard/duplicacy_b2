@@ -15,6 +15,7 @@ ENV THREADS=1
 ENV TZ=America/New_York
 
 # Set fixed environment variables
+ENV BACKUP_DIR=/duplicacy/backup
 ENV CRON_DEFAULT_CONFIG=/duplicacy/cron-default.conf
 ENV CRON_CONFIG=/duplicacy/appdata/cron/cron.conf
 ENV LOG_BACKUP_FILE=/duplicacy/appdata/logs/duplicacy_backup.log

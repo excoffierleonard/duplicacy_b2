@@ -8,7 +8,7 @@
 : ${B2_URL:?"Environment variable B2_URL is required but not set."}
 
 # Duplicacy init
-duplicacy init -e $SNAPSHOT_ID $B2_URL
+cd $BACKUP_DIR && duplicacy init -e $SNAPSHOT_ID $B2_URL
 
 # Create default configuration file if not exists
 if [ ! -f "$CRON_CONFIG" ]; then
