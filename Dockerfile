@@ -1,21 +1,24 @@
 # Duplicacy Dockerfile
 FROM debian:12
 
-# Set private environment variables
+# Set required environment variables
 ENV DUPLICACY_PASSWORD=""
 ENV DUPLICACY_B2_ID=""
 ENV DUPLICACY_B2_KEY=""
-
-# Set public environment variables
 ENV SNAPSHOT_ID=""
 ENV B2_URL=""
-ENV THREADS=1
 
-# Set timezone
+# Set optional environment variables
+ENV THREADS=1
 ENV TZ=America/New_York
 
 # Set fixed environment variables
 ENV BACKUP_DIR=/duplicacy/backup
+ENV APPDATA_DIR=/duplicacy/appdata
+
+ENV CRON_DIR=/duplicacy/appdata/cron
+ENV LOG_DIR=/duplicacy/appdata/logs
+
 ENV CRON_DEFAULT_CONFIG=/duplicacy/cron-default.conf
 ENV CRON_CONFIG=/duplicacy/appdata/cron/cron.conf
 ENV LOG_BACKUP_FILE=/duplicacy/appdata/logs/duplicacy_backup.log
@@ -33,10 +36,9 @@ RUN apt update && \
 RUN wget https://github.com/gilbertchen/duplicacy/releases/download/v3.2.3/duplicacy_linux_x64_3.2.3 -O /usr/local/bin/duplicacy && \
     chmod +x /usr/local/bin/duplicacy
 
-# Create directories
-RUN mkdir -p appdata/cron && \
-    mkdir -p appdata/logs && \
-    mkdir -p backup
+# Create root directories
+RUN mkdir -p /duplicacy/backup && \
+    mkdir -p /duplicacy/appdata
 
 # Set persistent volume path
 VOLUME /duplicacy/appdata

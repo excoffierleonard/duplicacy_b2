@@ -7,6 +7,10 @@
 : ${SNAPSHOT_ID:?"Environment variable SNAPSHOT_ID is required but not set."}
 : ${B2_URL:?"Environment variable B2_URL is required but not set."}
 
+# Create necessary directories
+mkdir -p $CRON_DIR
+mkdir -p $LOG_DIR
+
 # Duplicacy init
 cd $BACKUP_DIR && duplicacy init -e $SNAPSHOT_ID $B2_URL
 
