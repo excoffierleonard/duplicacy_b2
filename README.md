@@ -77,7 +77,7 @@ Docker Compose simplifies managing and running your container setups. Please ens
           - duplicacy_b2:/duplicacy/appdata # Docker volume for duplicacy_b2 appdata
           - ${BACKUP_PATH_1}:/duplicacy/backup # Enter the path to the folder(s) you want to backup here, add more lines if you want to backup multiple folders
         networks:
-          - duplicacy_b2
+          - duplicacy_b2 # Image specific Docker network for isolation
 
     volumes:
       duplicacy_b2:
