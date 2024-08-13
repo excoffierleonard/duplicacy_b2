@@ -11,13 +11,15 @@ This Docker project is designed to simplify the setup and management of backups 
 6. [Logs](#logs)
 7. [Commands](#commands)
 8. [Building Locally](#building-locally)
-8. [License](#license)
+9. [Notes](#notes)
+10. [License](#license)
+
 
 ## Sources
 
- - This project uses the command line version of [Duplicacy](https://github.com/gilbertchen/duplicacy)
- - You can find the source code of this project on [GitHub](https://github.com/excoffierleonard/docker-duplicacy_b2)
- - You can find the image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
+ - This project uses the command line version of [Duplicacy](https://github.com/gilbertchen/duplicacy).
+ - You can find the source code of this project on [GitHub](https://github.com/excoffierleonard/docker-duplicacy_b2).
+ - You can find the Docker image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
 
 ## Project Structure
 
@@ -182,6 +184,10 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
    docker build \ 
     -t duplicacy_b2 .
    ```
+
+## Notes
+
+- Make sure to mount a Docker Volume for the appdata (default), using a local bind mount may cause issues related to the initial creation of appdata. If you really want to use a local bind mount, make sure to create the necessary files manually with apropriate permissions before runing the image for the first time.
 
 ## License
 
