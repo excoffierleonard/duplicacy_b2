@@ -47,6 +47,7 @@ The following environment variables can be set either in a `.env` file, directly
 - `THREADS`: Number of threads for backup operations. (Default is 1)
 - `TZ`: Timezone for the container. (Default is America/New_York)
 - `BACKUP_PATH_1`: Path to the folder you want to back up.
+- `BACKUP_FOLDER_NAME_1`: How the backup folder will be named in the backup.
 
 ## Usage
 
@@ -75,7 +76,7 @@ Docker Compose simplifies managing and running your container setups. Please ens
           TZ: ${TZ} # Enter your timezone here
         volumes:
           - duplicacy_b2:/duplicacy/appdata # Docker volume for duplicacy_b2 appdata
-          - ${BACKUP_PATH_1}:/duplicacy/backup # Enter the path to the folder(s) you want to backup here, add more lines if you want to backup multiple folders
+          - ${BACKUP_PATH_1}:/duplicacy/backup/${BACKUP_FOLDER_NAME_1} # Enter the path to the folder(s) you want to backup here, add more lines if you want to backup multiple folders
         networks:
           - duplicacy_b2 # Image specific Docker network for isolation
 
@@ -100,7 +101,8 @@ Docker Compose simplifies managing and running your container setups. Please ens
    B2_URL=your_b2_bucket_url
    THREADS=1
    TZ=America/New_York
-   BACKUP_PATH_1=/folder/to/backup
+   BACKUP_PATH_1=/path/of/folder/to/backup
+   BACKUP_FOLDER_NAME_1=/name/of/folder
    ```
 
    Alternatively, you can hardcode these values directly in `compose.yaml`.
@@ -141,7 +143,7 @@ For users who prefer the direct Docker command or have specific use cases, Docke
      -e THREADS=1 \
      -e TZ=America/New_York \
      -v duplicacy_b2:/duplicacy/appdata \
-     -v BACKUP_PATH_1:/duplicacy/backup \
+     -v BACKUP_PATH_1:/duplicacy/backup/BACKUP_FOLDER_NAME_1 \
      excoffierleonard/duplicacy_b2
    ```
 
@@ -198,6 +200,8 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
 - The usage steps include the creation of a separate docker network, we chose this option because this Docker container will likely have access to sensitive files, the separate docker network provides additional isolation.
 
 - The appdata folder is by default linked to a Docker Volume for persistency ease of management.
+
+- Make sure to corretly bind the folders you want backed-up as subdirectories of `/duplicacy/backup` (it is set that way by default), this has two purposes: 1, it isolates the `.duplicacy` from the host filesystem, 2, it shows the name of the backed-up directory when inspecting the backup.
 
 ## License
 
