@@ -65,11 +65,13 @@ The following environment variables can be set either in a `.env` file, directly
 
   - Create a [Backblaze B2](https://www.backblaze.com/cloud-storage) account.
 
-  - Create a [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm).
+  - Create a Private [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm) with Object Lock and Default Encryption disabled (we already encrypt the data on duplicacy's side).
 
-  - Generate an [Application Key](https://secure.backblaze.com/app_keys.htm) that has Read and Write Access to the [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm) created.
+    - The `Bucket Unique Name` will be your `B2_URL`=`b2://BucketUniqueName`
 
-    - Save the `KeyID` (DUPLICACY_B2_ID) and `applicationKey` (DUPLICACY_B2_KEY) somewhere safe.
+  - Generate an [Application Key](https://secure.backblaze.com/app_keys.htm) that has Read and Write Access to the [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm) created, no File name prefix, and the wanted Duration (the backups will stop after that duration).
+
+    - Save the `KeyID` (`DUPLICACY_B2_ID`) and `applicationKey` (`DUPLICACY_B2_KEY`) somewhere safe.
 
 ### Preferred Method: Using Docker Compose
 
