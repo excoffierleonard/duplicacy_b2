@@ -67,7 +67,7 @@ The following environment variables can be set either in a `.env` file, directly
 
   - Create a Private [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm) with Object Lock and Default Encryption disabled (we already encrypt the data on duplicacy's side).
 
-    - The `Bucket Unique Name` will be your `B2_URL`=`b2://BucketUniqueName`
+    - The `Bucket Unique Name` will be your `B2_URL`=`b2://BucketUniqueName`.
 
   - Generate an [Application Key](https://secure.backblaze.com/app_keys.htm) that has Read and Write Access to the [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm) created, no File name prefix, and the wanted Duration (the backups will stop after that duration).
 
