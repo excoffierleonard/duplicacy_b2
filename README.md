@@ -3,7 +3,7 @@
 This Docker project is designed to simplify the setup and management of backups using Duplicacy with Backblaze B2 cloud storage. By using Docker, the project encapsulates all dependencies and configurations neatly, ensuring a consistent and reproducible environment for your backup operations.
 
 ## Table of Contents
-1. [Docker Image](#docker-image)
+1. [Sources](#sources)
 2. [Project Structure](#project-structure)
 3. [Environment Variables](#environment-variables)
 4. [Usage](#usage)
@@ -20,6 +20,8 @@ This Docker project is designed to simplify the setup and management of backups 
  - This project uses the command line version of [Duplicacy](https://github.com/gilbertchen/duplicacy).
  - You can find the source code of this project on [GitHub](https://github.com/excoffierleonard/docker-duplicacy_b2).
  - You can find the Docker image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
+
+ - This project requires [Docker Engine](https://docs.docker.com/engine/install/) and a [Backblaze B2](https://www.backblaze.com/cloud-storage) account.
 
 ## Project Structure
 
@@ -52,6 +54,22 @@ The following environment variables can be set either in a `.env` file, directly
 > In the case where you use an `.env` and you wish to not use the `THREADS` or `TZ` environment variable: you must delete their lines from (or simply not include them in) the `compose.yaml`.
 
 ## Usage
+
+### Prerequisites
+
+1. **Docker Engine**
+
+  - Install [Docker Engine](https://docs.docker.com/engine/install/).
+
+2. **Backblaze**
+
+  - Create a [Backblaze B2](https://www.backblaze.com/cloud-storage) account.
+
+  - Create a [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm).
+
+  - Generate an [Application Key](https://secure.backblaze.com/app_keys.htm) that has Read and Write Access to the [B2 Cloud Storage Bucket](https://secure.backblaze.com/b2_buckets.htm) created.
+
+    - Save the `KeyID` (DUPLICACY_B2_ID) and `applicationKey` (DUPLICACY_B2_KEY) somewhere safe.
 
 ### Preferred Method: Using Docker Compose
 
