@@ -18,7 +18,7 @@ This Docker project is designed to simplify the setup and management of backups 
 ## Sources
 
  - This project uses the command line version of [Duplicacy](https://github.com/gilbertchen/duplicacy).
- - You can find the source code of this project on [GitHub](https://github.com/excoffierleonard/docker-duplicacy_b2).
+ - You can find the source code of this project on [GitHub](https://github.com/excoffierleonard/duplicacy_b2).
  - You can find the Docker image of this project on [Docker Hub](https://hub.docker.com/r/excoffierleonard/duplicacy_b2).
 
  - This project requires [Docker Engine](https://docs.docker.com/engine/install/) and a [Backblaze B2](https://www.backblaze.com/cloud-storage) account.
@@ -210,8 +210,8 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
 ## Building Locally
 
    ```
-   git clone https://github.com/yourusername/docker-duplicacy_b2.git
-   cd docker-duplicacy_b2
+   git clone https://github.com/yourusername/duplicacy_b2.git
+   cd duplicacy_b2
    docker build -t duplicacy_b2 .
    ```
 
