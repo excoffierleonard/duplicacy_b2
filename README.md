@@ -51,7 +51,7 @@ The following environment variables can be set either in a `.env` file, directly
 - `BACKUP_PATH_1`: Path to the folder you want to back up.
 - `BACKUP_FOLDER_NAME_1`: How the backup folder will be named in the backup.
 
-> In the case where you use an `.env` and you wish to not use the `THREADS` or `TZ` environment variable: you must delete their lines from (or simply not include them in) the `compose.yaml`.
+> In the case where you use an `.env` and you wish to not use the `THREADS` or `TZ` environment variable: you must delete their lines from (or simply not include them in) the [compose.yaml](compose.yaml).
 
 ## Usage
 
@@ -113,7 +113,7 @@ Docker Compose simplifies managing and running your container setups. Please ens
 
 2. **Create a `.env` File:**
 
-   Set up environment variables by creating a `.env` file in the same directory as `compose.yaml`. You can use the example below as a guideline:
+   Set up environment variables by creating a `.env` file in the same directory as [compose.yaml](compose.yaml). You can use the example below as a guideline:
 
    ```
    DUPLICACY_PASSWORD=your_backup_password
@@ -127,9 +127,9 @@ Docker Compose simplifies managing and running your container setups. Please ens
    BACKUP_FOLDER_NAME_1=/name/of/folder
    ```
 
-   Alternatively, you can hardcode these values directly in `compose.yaml`.
+   Alternatively, you can hardcode these values directly in [compose.yaml](compose.yaml).
 
-4. **Launch the Service:**
+3. **Launch the Service:**
 
    - Start the containers in detached mode with Docker Compose:
      ```sh
@@ -215,7 +215,7 @@ The backup and prune log files can be found in the Docker volume at `duplicacy_b
    docker build -t duplicacy_b2 .
    ```
 
-   - Dont't forget to modify the image name in the `compose.yaml` or `Run` command accordingly.
+   - Dont't forget to modify the image name in the [compose.yaml](compose.yaml) or `Run` command accordingly.
 
 ## Notes
 
