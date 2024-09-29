@@ -46,6 +46,7 @@ VOLUME /duplicacy/appdata
 # Copy files
 COPY cron-default.conf .
 COPY start.sh .
+RUN chmod +x start.sh
 
 # Start script
 CMD ["./start.sh"]
