@@ -51,7 +51,7 @@ The following environment variables can be set either in a `.env` file, directly
 - `BACKUP_PATH_1`: Path to the folder you want to back up.
 - `BACKUP_FOLDER_NAME_1`: How the backup folder will be named in the backup.
 
-> In the case where you use an `.env` and you wish to not use the `THREADS` or `TZ` environment variable: you must delete their lines from (or simply not include them in) the [compose.yaml](compose.yaml).
+> ⚠️ **Warning**: In the case where you use an `.env` and you wish to not use the `THREADS` or `TZ` environment variable: you must delete their lines from (or simply not include them in) the [compose.yaml](compose.yaml).
 
 ## Usage
 
