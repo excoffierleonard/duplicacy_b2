@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Exit if the some environment variables are not set
+# Exit if some environment variables are not set
 : ${DUPLICACY_PASSWORD:?"Environment variable DUPLICACY_PASSWORD is required but not set."}
 : ${DUPLICACY_B2_ID:?"Environment variable B2_ID is required but not set."}
 : ${DUPLICACY_B2_KEY:?"Environment variable B2_KEY is required but not set."}
