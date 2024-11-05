@@ -33,7 +33,7 @@ RUN apt update && \
     apt install -y bash cron wget procps vim
 
 # Install duplicacy
-RUN wget https://github.com/gilbertchen/duplicacy/releases/download/v3.2.3/duplicacy_linux_x64_3.2.3 -O /usr/local/bin/duplicacy && \
+RUN wget https://github.com/gilbertchen/duplicacy/releases/download/v3.2.4/duplicacy_linux_x64_3.2.4 -O /usr/local/bin/duplicacy && \
     chmod +x /usr/local/bin/duplicacy
 
 # Create root directories
